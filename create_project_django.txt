@@ -1,0 +1,11 @@
+如何安装django？
+
+pip3 install django # 安装最新Django
+pip3 install django==2.0.7 # 指定版本安装
+
+# 新建一个目录，比如/home/jack/first_python
+
+1、cd /home/jack/first_python
+2、django-admin startproject 项目名称(比如 mysite),会产生一个项目名称:mysite 以及启动文件manage.py
+3、python3 manage.py runserver 启动项目
+4、如果成功，在浏览器中输入访问 http://127.0.0.1:8000
