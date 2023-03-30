@@ -16,6 +16,13 @@ class Category(models.Model):
     name = models.CharField('分类', max_length=100)
     name_en = models.CharField('英文名称', max_length=100)
 
+    class Meta:
+        verbose_name = '分类'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
 
 class Tags(models.Model):
     """
@@ -23,6 +30,13 @@ class Tags(models.Model):
     再次强调一定要继承 models.Model 类！
     """
     name = models.CharField('标签', max_length=100)
+
+    class Meta:
+        verbose_name = '标签'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
 
 
 class Article(models.Model):
@@ -49,3 +63,26 @@ class Article(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
     # created_time，我们使用了DateTimeField字段，添加了一个auto_now_add参数，自动获取添加时间！
     created_time = models.DateTimeField('发布时间', auto_now_add=True)
+
+    class Meta:
+        verbose_name = '文章'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.title
+
+
+class Person(models.Model):
+    name = models.CharField(max_length=50)
+
+
+class Group(models.Model):
+    name = models.CharField(max_length=128)
+    members = models.ManyToManyField(Person, through='Membership', through_fields=('group', 'person'))
+
+
+class Membership(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, )
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, )
+    inviter = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="membership_invites")
+    invite_reason = models.CharField(max_length=64)
