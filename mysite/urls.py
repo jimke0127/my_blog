@@ -19,6 +19,8 @@ from blogs import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index', views.hello),
+    path('article', views.article),
+    path('category', views.get_category),
     path('orm/', views.orm),
+    path('', views.index, name='index'),
 ]
